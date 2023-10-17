@@ -1,0 +1,26 @@
+App (Tabs)
+|
+|--> Information
+|    |--> Announcement
+|    |--> Marks
+|    |--> Notice Board
+|
+|--> Your Stats 
+|    |--> Marks
+|    |--> Homework
+|    |--> Attendance
+|
+|--> Online
+|    |--> E-Content
+|    |--> Fee-Payment
+|    |--> Annual Calender
+|    |--> Bus Location
+|    |--> Online Class
+|    |--> Online Text
+|
+|--> Feedback (Most likely will be a FAB or Button on bottom nav bar)
+|    |--> Write to school
+|    |--> Comments
+
+(Profile and settings to be added to top nav bar)
+
