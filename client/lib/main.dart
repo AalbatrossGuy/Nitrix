@@ -1,8 +1,5 @@
 import 'package:Nitrix/data/themes.dart';
-import 'package:Nitrix/pages/feedback.dart';
 import 'package:Nitrix/pages/home.dart';
-import 'package:Nitrix/pages/online.dart';
-import 'package:Nitrix/pages/stats.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,14 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'Nitrix',
       theme: themes.lightThemeData,
       darkTheme: themes.darkThemeData,
-      themeMode: ThemeMode.light,
-      routes: {
-        '/': (context) => const HomePage(title: 'Nitrix Home'),
-        '/stats': (context) => const statsPage(),
-        '/online': (context) => const onlinePage(),
-        '/feedback': (context) => const feedbackPage(),
-      },
-      initialRoute: '/',
+      themeMode: ThemeMode.dark,
+      home: const HomePage(
+        title: 'Nitrix Home',
+      ),
     );
   }
 }

@@ -1,65 +1,113 @@
-import 'package:Nitrix/widgets/nitrixAppBar.dart';
-import 'package:Nitrix/widgets/nitrixBottomNavigationBar.dart';
+import 'package:Nitrix/pages/feedback.dart';
+import 'package:Nitrix/pages/information.dart';
+import 'package:Nitrix/pages/online.dart';
+import 'package:Nitrix/pages/stats.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
 
   final String title;
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentPageIndex = 0;
+  final screens = [
+    const informationPage(),
+    const statsPage(),
+    // DON'T remove, it is there as floating button creates extra index
+    const Center(),
+    const onlinePage(),
+    const feedbackPage()
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: nitrixAppBar.createNitrixAppBar(context),
-      bottomNavigationBar: const nitrixBottomNaviagationBar(),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 15),
-            child: Text(
-              "Good Morning Bob.",
-              style: TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-                fontFamily: "Roboto",
-              ),
-            ),
+      appBar: buildAppBar(context),
+      bottomNavigationBar: buildBottomNavBar(),
+      body: screens[currentPageIndex],
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      title: const Text('Nitrix'),
+      centerTitle: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
+    );
+  }
+
+  Container buildBottomNavBar() {
+    return Container(
+      decoration: const ShapeDecoration(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(23),
+            topRight: Radius.circular(23),
           ),
-          const Text(
-            "Here is an overview of your basic stats",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w300,
-              fontFamily: "Poppins",
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(23.0),
+          topRight: Radius.circular(23.0),
+        ),
+        child: NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          selectedIndex: currentPageIndex,
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          destinations: <Widget>[
+            const NavigationDestination(
+              selectedIcon: Icon(Icons.info_outline_rounded),
+              icon: Icon(Icons.info_rounded),
+              label: 'Information',
             ),
-          ),
-          const SizedBox(
-            height: 100,
-            width: 100,
-          ),
-          Container(
-            decoration: ShapeDecoration(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-              ),
-              color: Theme.of(context).colorScheme.surfaceVariant,
+            const NavigationDestination(
+              selectedIcon: Icon(Icons.stacked_line_chart_outlined),
+              icon: Icon(Icons.stacked_line_chart),
+              label: 'Stats',
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Center(
-                  child: Text(
-                    "Announcements:",
-                    style: Theme.of(context).textTheme.titleLarge,
+            SizedBox(
+              height: 60,
+              width: 45,
+              child: FilledButton.tonal(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                )
-              ],
+                ),
+                child: const Icon(Icons.add),
+                onPressed: () {},
+              ),
             ),
-          ),
-        ],
+            const NavigationDestination(
+              selectedIcon: Icon(Icons.online_prediction),
+              icon: Icon(Icons.online_prediction_outlined),
+              label: 'Online',
+            ),
+            const NavigationDestination(
+              selectedIcon: Icon(Icons.note_alt),
+              icon: Icon(Icons.note_alt_outlined),
+              label: 'Feedback',
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -15,6 +15,5 @@ class themes {
       seedColor: Colors.blue,
       brightness: Brightness.dark,
     ),
-    scaffoldBackgroundColor: Colors.black,
   );
 }
