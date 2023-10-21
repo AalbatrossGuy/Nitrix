@@ -8,7 +8,7 @@ nitrix = FastAPI()
 metas = ConfigParser()
 metas.read('config.ini')
 # connectx = psycopg.connect("postgres://postgres:pgadmin4@localhost:5432/fastapi")
-connectx = psycopg.connect("dbname=Nitrix user=postgres password=pgadmin4 host=localhost port=5432")
+connectx = psycopg.connect(f"dbname={metas['DATABASEINFO']['name']} user={metas['DATABASEINFO']['user']} password={metas['DATABASEINFO']['password']} host={metas['DATABASEINFO']['host']} port={metas['DATABASEINFO']['port']}")
 
 
 @nitrix.get('/')
